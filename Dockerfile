@@ -1,6 +1,7 @@
 FROM alpine:3.3
 
 RUN apk --update add nginx php-fpm && \
+    apk add git && \
     mkdir -p /var/log/nginx && \
     touch /var/log/nginx/access.log && \
     mkdir -p /tmp/nginx && \
