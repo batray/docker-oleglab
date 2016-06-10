@@ -1,4 +1,4 @@
-oleglab:
+web:
   image: oleglab/web
   ports:
     - "80:80"
