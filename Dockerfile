@@ -1,5 +1,6 @@
 FROM alpine:3.3
 
+#Install grav into /www folder
 RUN apk --update add nginx php-fpm wget curl git php php-curl php-openssl php-json php-phar php-dom php-gd php-ctype php-xml && \
     rm /var/cache/apk/* && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
@@ -17,6 +18,10 @@ RUN apk --update add nginx php-fpm wget curl git php php-curl php-openssl php-js
     mkdir -p /tmp/nginx && \
     echo "clear_env = no" >> /etc/php/php-fpm.conf
 ADD www /www
+
+#Add nginx and php-fpm configuration
 ADD etc /etc
 EXPOSE 80
+
+#Start nginx and php-fpm
 CMD php-fpm -d variables_order="EGPCS" && (tail -F /var/log/nginx/access.log &) && exec nginx -g "daemon off;"
